@@ -15,7 +15,7 @@ def test_get_savings_goal(requests_mock):
 
     savings_goal_id = "12345-12345"
 
-    with open("../responses/v1-get-savings-goal.json") as f:
+    with open("test/responses/v1-get-savings-goal.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/savings-goals/{}".format(mock_url, savings_goal_id),
@@ -36,7 +36,7 @@ def test_list_savings_goals(requests_mock):
         "api_url": mock_url
     })
 
-    with open("../responses/v1-list-savings-goals.json") as f:
+    with open("test/responses/v1-list-savings-goals.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/savings-goals".format(mock_url),

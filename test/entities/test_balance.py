@@ -13,7 +13,7 @@ def test_get_balance(requests_mock):
         "api_url": mock_url
     })
 
-    with open("../responses/v1-get-balance.json") as f:
+    with open("test/responses/v1-get-balance.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/accounts/balance".format(mock_url),

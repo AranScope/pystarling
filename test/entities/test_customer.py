@@ -13,7 +13,7 @@ def test_get_customer(requests_mock):
         "api_url": mock_url
     })
 
-    with open("../responses/v1-get-customers.json") as f:
+    with open("test/responses/v1-get-customers.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/customers".format(mock_url),

@@ -13,7 +13,7 @@ def test_list_mandates(requests_mock):
         "api_url": mock_url
     })
 
-    with open("../responses/v1-list-mandates.json") as f:
+    with open("test/responses/v1-list-mandates.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/direct-debit/mandates".format(mock_url),
@@ -35,7 +35,7 @@ def test_get_mandate(requests_mock):
         "api_url": mock_url
     })
 
-    with open("../responses/v1-get-mandate.json") as f:
+    with open("test/responses/v1-get-mandate.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/direct-debit/mandates/{}".format(mock_url, mandate_id),

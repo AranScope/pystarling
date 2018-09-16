@@ -67,7 +67,7 @@ class SavingsGoals(object):
         :param savings_goal_id: the savings goal's ID
         :return: the http request promise
         """
-        type_validation([access_token], get_savings_goals_parameter_definition)
+        type_validation([access_token, savings_goal_id], get_savings_goals_parameter_definition)
         url = "{api_url}/api/v1/savings-goals/{goal_id}".format(
             api_url=self.options["api_url"], goal_id=savings_goal_id)
         logging.debug("GET {url}".format(url=url))

@@ -27,6 +27,6 @@ class WhoAmI(object):
         :return: the http request promise
         """
         type_validation([access_token], get_me_parameter_definition)
-        url = "{api_url}/api/v1/accounts".format(api_url=self.options["api_url"])
+        url = "{api_url}/api/v1/me".format(api_url=self.options["api_url"])
         logging.debug("GET {url}".format(url=url))
         return request.get(url, headers=default_headers(access_token))

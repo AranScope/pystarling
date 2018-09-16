@@ -13,7 +13,7 @@ def test_get_contacts(requests_mock):
         "api_url": mock_url
     })
 
-    with open("../responses/v1-get-contacts.json") as f:
+    with open("test/responses/v1-get-contacts.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/contacts".format(mock_url),
@@ -36,7 +36,7 @@ def test_get_contact_account(requests_mock):
         "api_url": mock_url
     })
 
-    with open("../responses/v1-get-contact-account.json") as f:
+    with open("test/responses/v1-get-contact-account.json") as f:
         expected_response = json.load(f)
 
         requests_mock.get("{}/api/v1/contacts/{}".format(mock_url, contact_id),

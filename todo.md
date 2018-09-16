@@ -11,9 +11,9 @@ savingsGoals.js
 - the name of the new contact :
 - createSavingsGoal should probably have url goal_id paramter in the body for consistency
 - addMoneyToSavingsGoal currency not in jsdoc
+- createSavingsGoal not covered in any unit tests
 
 payment.js
 - Keep saying transaction instead of payment
-
 
 - abstract out defaults etc. into a separate class, so it's cleaner

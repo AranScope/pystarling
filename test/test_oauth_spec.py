@@ -2,7 +2,7 @@ import json
 
 from starling.starling import Starling
 from starling.utils.http import oauth_headers
-
+import os
 
 def test_get_access_token(requests_mock):
     mock_object = Starling({
@@ -12,7 +12,9 @@ def test_get_access_token(requests_mock):
         "redirect_uri": "redirect"
     })
 
-    with open("../responses/v1-get-access-token.json") as f:
+    print(os.getcwd())
+
+    with open("test/responses/v1-get-access-token.json") as f:
         expected_response = json.load(f)
 
         requests_mock.post("http://localhost/oauth/access-token",
@@ -32,7 +34,7 @@ def test_refresh_access_token(requests_mock):
         "redirect_uri": "redirect"
     })
 
-    with open("../responses/v1-refresh-access-token.json") as f:
+    with open("test/responses/v1-refresh-access-token.json") as f:
         expected_response = json.load(f)
 
         requests_mock.post("http://localhost/oauth/access-token",

@@ -8,8 +8,5 @@ setup(name="starling",
       author_email="me@aran.site",
       license="MIT",
       packages=["starling"],
-      install_requires=[
-          "requests"
-      ],
-      tests_require=["pytest", "requests_mock"]
+      install_requires=["requests"]
       )

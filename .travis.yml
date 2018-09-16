@@ -1,5 +1,8 @@
 language: python
 
+virtualenv:
+  system_site_packages: true
+
 python:
   - "3.3"
   - "3.4"
@@ -10,6 +13,7 @@ python:
   - "3.7-dev"  # 3.7 development branch
 
 install:
+  - pip install -r requirements.txt
   - pip install -e .
 
 script:

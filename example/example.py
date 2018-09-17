@@ -1,7 +1,7 @@
 from starling.starling import Starling
 
 starling = Starling({
-    "access_token": "v9gAGv5CKMutzVrvyA8FkJggdqYF1q5Z5NUdNGiX4mfUkyLknpVNC70cfXriTts7",
+    "access_token": "some_access_token",
     "api_url": "https://api-sandbox.starlingbank.com"
 })
 

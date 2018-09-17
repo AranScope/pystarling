@@ -1,4 +1,4 @@
-from starling.starling import Starling
+from pystarling.starling import Starling
 
 starling = Starling({
     "access_token": "some_access_token",

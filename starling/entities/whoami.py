@@ -1,7 +1,8 @@
 import logging
-from starling.utils.http import default_headers
+
 import starling.utils.request as request
-from starling.utils.validator import type_validation, ParameterDefinition
+from starling.utils.http import default_headers
+from starling.utils.validator import type_validation
 
 get_me_parameter_definition = [
     {"name": "accessToken", "validations": ("required", str)}
@@ -24,7 +25,7 @@ class WhoAmI(object):
         Retrieves the customer UUID and permissions corresponding to the access token passed
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], get_me_parameter_definition)
         url = "{api_url}/api/v1/me".format(api_url=self.options["api_url"])

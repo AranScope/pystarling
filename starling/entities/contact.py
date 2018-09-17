@@ -1,6 +1,7 @@
 import logging
-from starling.utils.http import default_headers
+
 import starling.utils.request as request
+from starling.utils.http import default_headers
 from starling.utils.validator import type_validation
 
 get_contact_parameter_definition = [
@@ -19,10 +20,8 @@ get_contact_account_parameter_definition = [
 create_contact_parameter_definition = [
     {"name": "accessToken", "validations": ("required", str)},
     {"name": "name", "validations": ("required", str)},
-    {"name": "accountType", "validations": ("required", str)},
     {"name": "accountNumber", "validations": ("required", str)},
-    {"name": "sortCode", "validations": ("required", str)},
-    {"name": "customerId", "validations": ("optional", str)}
+    {"name": "sortCode", "validations": ("required", str)}
 ]
 
 delete_contact_parameter_definition = [
@@ -42,13 +41,13 @@ class Contact(object):
         """
         self.options = options
 
-    def get_contact_account(self, access_token, contact_id):
+    def get_contact_account(self, access_token: str, contact_id: str):
         """
         Gets a specific contact from the customer's contacts (payees)
 
         :param contact_id: the id of the contact
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], get_contact_parameter_definition)
         url = "{api_url}/api/v1/contacts/{contact_id}".format(api_url=self.options["api_url"], contact_id=contact_id)
@@ -61,7 +60,7 @@ class Contact(object):
         Gets the customer's contacts (payees)
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], get_contacts_parameter_definition)
         url = "{api_url}/api/v1/contacts".format(api_url=self.options["api_url"])
@@ -74,7 +73,7 @@ class Contact(object):
 
         :param access_token: the oauth bearer token
         :param contact_id: the contact's ID
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token, contact_id], get_contact_account_parameter_definition)
         url = "{api_url}/api/v1/contacts/{contact_id}/accounts".format(
@@ -82,19 +81,17 @@ class Contact(object):
         logging.debug("GET {url}".format(url=url))
         return request.get(url, headers=default_headers(access_token))
 
-    def create_contact(self, access_token, name, account_type, account_number, sort_code, customer_id):
+    def create_contact(self, access_token, name, account_number, sort_code):
         """
         Creates a contact (payee) for the customer
 
         :param access_token: the oauth bearer token
         :param name: the name of the new contact
-        :param account_type: the account type (domestic or international)
         :param account_number: the contact's bank account number
         :param sort_code: the contact's sort code
-        :param customer_id: the customer's ID. (optional)
-        :return: the http request promise
+        :return: the json response dict
         """
-        type_validation([access_token, name, account_type, account_number, sort_code, customer_id],
+        type_validation([access_token, name, account_number, sort_code],
                         get_contact_account_parameter_definition)
         url = "{api_url}/api/v1/contacts".format(api_url=self.options["api_url"])
         logging.debug("POST {url}".format(url=url))
@@ -104,10 +101,8 @@ class Contact(object):
             headers=default_headers(access_token),
             data={
                 "name": name,
-                "accountType": account_type,
                 "accountNumber": account_number,
-                "sortCode": sort_code,
-                "contactId": customer_id
+                "sortCode": sort_code
             }
         )
 
@@ -117,10 +112,9 @@ class Contact(object):
 
         :param access_token: the oauth bearer token
         :param contact_id: the contact's ID
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token, contact_id], delete_contact_parameter_definition)
         url = "{api_url}/api/v1/contacts/{contact_id}".format(api_url=self.options["api_url"], contact_id=contact_id)
         logging.debug("DELETE {url}".format(url=url))
         return request.delete(url, headers=default_headers(access_token))
-

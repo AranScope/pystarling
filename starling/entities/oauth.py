@@ -1,9 +1,9 @@
 import logging
 
 import starling.utils.request as request
-from starling.utils.http import default_headers, oauth_headers
-from starling.utils.validator import type_validation
 from starling.errors import ClientConfigurationError
+from starling.utils.http import oauth_headers
+from starling.utils.validator import type_validation
 
 refresh_token_parameter_definition = [
     {"name": "accessToken", "validations": ("required", str)}
@@ -34,7 +34,7 @@ class OAuth(object):
 
         :param authorization_code: the authorization code, acquired from the user agent after the
                                    user authenticates with starling
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([authorization_code], authorization_code_parameter_definition)
 
@@ -52,7 +52,7 @@ class OAuth(object):
 
         :param refresh_token: the oauth refresh token, used when the access token
                               expires to claim a new access token.
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([refresh_token], refresh_token_parameter_definition)
 
@@ -68,7 +68,7 @@ class OAuth(object):
         Gets the access token from the starling oauth endpoint
 
         :param params: the query params passed to the oauth endpoint as per the oauth spec
-        :return: the http request promise
+        :return: the json response dict
         """
         if not self.options["client_id"]:
             raise ClientConfigurationError("clientId is not configured")

@@ -25,7 +25,7 @@ class Address(object):
         Retrieves a customer's address
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], get_address_parameter_definition)
         url = "{api_url}/api/v1/addresses".format(api_url=self.options["api_url"])

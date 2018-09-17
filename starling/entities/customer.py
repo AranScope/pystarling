@@ -25,7 +25,7 @@ class Customer(object):
         Gets a customer's details
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], get_customer_parameter_definition)
         url = "{api_url}/api/v1/customers".format(api_url=self.options["api_url"])

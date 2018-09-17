@@ -7,6 +7,9 @@ ParameterDefinition = namedtuple("Validation", ("name", "definitions"))
 
 def _run_validations(pos, name, validations, value=None):
 
+    if not validations:
+        return None
+
     if validations[0] == "optional":
         if value is not None and not isinstance(value, validations[1]):
             return "{name} parameter in position {pos} is an optional {rule} but was {value_type}".format(

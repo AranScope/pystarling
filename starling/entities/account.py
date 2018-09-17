@@ -28,7 +28,7 @@ class Account(object):
         Retrieves a customer's account
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], get_account_parameter_definition)
         url = "{api_url}/api/v1/accounts".format(api_url=self.options["api_url"])
@@ -40,7 +40,7 @@ class Account(object):
         Retrieves the customer's balance
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], get_balance_parameter_definition)
         url = "{api_url}/api/v1/accounts/balance".format(api_url=self.options["api_url"])

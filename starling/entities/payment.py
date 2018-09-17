@@ -8,8 +8,7 @@ make_local_payment_parameter_definition = [
     {"name": "accessToken", "validations": ("required", str)},
     {"name": "destinationAccountUid", "validations": ("required", str)},
     {"name": "reference", "validations": ("required", str)},
-    {"name": "amount", "validations": ("required", str)},
-    {"name": "currency", "validations": ("optional", str)}
+    {"name": "amount", "validations": ("required", str)}
 ]
 
 list_scheduled_payments_parameter_definition = [
@@ -28,7 +27,7 @@ class Payment(object):
         """
         self.options = options
 
-    def make_local_payment(self, access_token, destination_account_uid, reference, amount, currency):
+    def make_local_payment(self, access_token, destination_account_uid, reference, amount):
         """
         Makes a payment on behalf of the customer to another UK bank account using the Faster Payments network
 
@@ -36,10 +35,9 @@ class Payment(object):
         :param destination_account_uid:
         :param reference: the payment reference, max. 18 characters
         :param amount: the amount to be send
-        :param currency: the currency, optional, defaults to "GBP"
-        :return: the http request promise
+        :return: the json response dict
         """
-        type_validation([access_token, destination_account_uid, reference, amount, currency],
+        type_validation([access_token, destination_account_uid, reference, amount],
                         make_local_payment_parameter_definition)
         url = "{api_url}/api/v1/payments/local".format(api_url=self.options["api_url"])
         logging.debug("POST {url}".format(url=url))
@@ -47,7 +45,6 @@ class Payment(object):
             "destinationAccountUid": destination_account_uid,
             "payment": {
                 "amount": amount,
-                "currency": currency
             },
             "reference": reference
         })
@@ -57,7 +54,7 @@ class Payment(object):
         Lists the customer's scheduled payments
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], list_scheduled_payments_parameter_definition)
         url = "{api_url}/api/v1/payments/scheduled".format(api_url=self.options["api_url"])

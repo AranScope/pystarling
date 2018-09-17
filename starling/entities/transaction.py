@@ -1,8 +1,8 @@
 import logging
 
+from starling.utils import request
 from starling.utils.http import default_headers
 from starling.utils.validator import type_validation
-from starling.utils import request
 
 get_transactions_parameter_definition = [
     {"name": "accessToken", "validations": ("required", str)},
@@ -53,7 +53,7 @@ class Transaction(object):
         :param to_date: filter transactions before this date. Format: YYYY-MM-DD
         :param source: the transaction type (e.g. faster payments, mastercard)
                        if not specified, results are not filtered by source
-        :return: the http request promise
+        :return: the json response dict
         """
 
         type_validation([access_token, from_date, to_date, source],
@@ -77,7 +77,7 @@ class Transaction(object):
         :param transaction_id: the unique transaction ID
         :param source: the transaction type (e.g. faster payments, mastercard)
                        if not specified, only generic transaction information is provided
-        :return: the http request promise
+        :return: the json response dict
         """
 
         type_validation([access_token, transaction_id, source],

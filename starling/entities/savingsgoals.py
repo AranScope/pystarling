@@ -20,11 +20,9 @@ delete_savings_goals_parameter_definition = [
 
 create_savings_goals_parameter_definition = [
     {"name": "accessToken", "validations": ("required", str)},
-    {"name": "savingsGoalId", "validations": ("required", str)},
     {"name": "name", "validations": ("required", str)},
     {"name": "currency", "validations": ("required", str)},
     {"name": "targetAmount", "validations": ("optional", str)},
-    {"name": "targetCurrency", "validations": ("optional", str)},
     {"name": "base64EncodedPhoto", "validations": ("optional", str)}
 ]
 
@@ -52,7 +50,7 @@ class SavingsGoals(object):
         Gets a lists of the customer's savings goals
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], list_savings_goals_parameter_definition)
         url = "{api_url}/api/v1/savings-goals".format(api_url=self.options["api_url"])
@@ -65,7 +63,7 @@ class SavingsGoals(object):
 
         :param access_token: the oauth bearer token
         :param savings_goal_id: the savings goal's ID
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token, savings_goal_id], get_savings_goals_parameter_definition)
         url = "{api_url}/api/v1/savings-goals/{goal_id}".format(
@@ -73,39 +71,43 @@ class SavingsGoals(object):
         logging.debug("GET {url}".format(url=url))
         return request.get(url, headers=default_headers(access_token))
 
-    def create_savings_goal(self, access_token, savings_goal_id, name, currency,
-                            target_amount, target_currency, base64_encoded_photo):
+    def create_savings_goal(self, access_token, savings_goal_id, name,
+                            target_amount, currency="GBP", target_currency="GBP", base64_encoded_photo=None):
         """
         Creates a savings goal
 
         :param access_token: the oauth bearer token
         :param savings_goal_id: the saving's goal's ID
         :param name: the name of the savings goal
-        :param currency: the currency of the savings goal
         :param target_amount: the target amount in minor units (e.g. 1234 => £12.34)
-        :param target_currency: the target currenct, defaults to 'GBP'
+        :param currency: the currency of the savings goal, defaults to 'GBP'
+        :param target_currency: the target currency, defaults to 'GBP'
         :param base64_encoded_photo: base64 encoded image to associate with the goal. (optional)
-        :return: the http request promise
+        :return: the json response dict
         """
 
-        type_validation([access_token, savings_goal_id, name, currency,
+        type_validation([access_token, name, currency,
                          target_amount, target_currency, base64_encoded_photo],
                         create_savings_goals_parameter_definition)
+
+        data = {
+            "name": name,
+            "currency": currency,
+            "target": {
+                "targetAmount": target_amount,
+                "targetCurrency": target_currency
+            }
+        }
+
+        if base64_encoded_photo is not None:
+            data["base64EncodedPhoto"] = base64_encoded_photo
 
         url = "{api_url}/api/v1/savings-goals/{goal_id}".format(
             api_url=self.options["api_url"], goal_id=savings_goal_id)
 
         logging.debug("PUT {url}".format(url=url))
 
-        return request.put(url, headers=default_headers(access_token), data={
-            "name": name,
-            "currency": currency,
-            "target": {
-                "targetAmount": target_amount,
-                "targetCurrency": target_currency
-            },
-            "base64EncodedPhoto": base64_encoded_photo
-        })
+        return request.put(url, headers=default_headers(access_token), data=data)
 
     def delete_savings_goal(self, access_token, savings_goal_id):
         """
@@ -113,7 +115,7 @@ class SavingsGoals(object):
 
         :param access_token: the oauth bearer token
         :param savings_goal_id: the savings goal's ID
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token, savings_goal_id], delete_savings_goals_parameter_definition)
         url = "{api_url}/api/v1/savings-goals/{goal_id}".format(
@@ -131,7 +133,7 @@ class SavingsGoals(object):
         :param amount: an amount in minor unit
         :param currency: the currency of the savings goal
 
-        :return: the http request promise
+        :return: the json response dict
         """
 
         type_validation([access_token, savings_goal_id, transaction_id, amount, currency],

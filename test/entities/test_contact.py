@@ -54,10 +54,8 @@ def test_create_contact_account(requests_mock):
     mock_access_token = "0123456789"
 
     name = "Mickey Mouse"
-    account_type = "3"
     account_number = "87654321"
     sort_code = "60-83-71"
-    customer_id = "2022a9c9-01fa-4c8d-ab19-daec80d7a111"
 
     mock_object = Starling({
         "api_url": mock_url
@@ -72,8 +70,6 @@ def test_create_contact_account(requests_mock):
         name,
         account_number,
         sort_code,
-        customer_id=customer_id,
-        account_type=account_type,
         access_token=mock_access_token
     )
 

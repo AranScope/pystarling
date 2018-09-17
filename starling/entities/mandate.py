@@ -30,7 +30,7 @@ class Mandate(object):
         Gets a list of the customer's current direct debit mandates
 
         :param access_token: the oauth bearer token
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], list_mandates_parameter_definition)
         url = "{api_url}/api/v1/direct-debit/mandates".format(api_url=self.options["api_url"])
@@ -43,7 +43,7 @@ class Mandate(object):
 
         :param access_token: the oauth bearer token
         :param mandate_id: the unique mandate ID
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token], list_mandates_parameter_definition)
         url = "{api_url}/api/v1/direct-debit/mandates/{mandate_id}".format(
@@ -57,7 +57,7 @@ class Mandate(object):
 
         :param access_token: the oauth bearer token
         :param mandate_id: the unique mandate ID
-        :return: the http request promise
+        :return: the json response dict
         """
         type_validation([access_token, mandate_id], delete_mandate_parameter_definition)
         url = "{api_url}/api/v1/direct-debit/mandates/{mandate_id}".format(

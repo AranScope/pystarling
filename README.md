@@ -14,12 +14,12 @@ The documentation for the Starling SDK can be found <a href="https://starlingban
 ## Examples
 
 ```Python
-from pystarling.starling import Starling
+from starling.starling import Starling
 
-starling = Starling({
+customer = Starling({
     "access_token": "some_access_token",
     "api_url": "https://api-sandbox.starlingbank.com"
 })
 
-print(starling.get_card())
+print(customer.get_card())
 ```

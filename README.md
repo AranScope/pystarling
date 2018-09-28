@@ -1,5 +1,5 @@
 # Starling Python SDK 
-[![Build Status](https://travis-ci.org/AranScope/starling-python.svg?branch=master)](https://travis-ci.org/AranScope/starling-python)
+[![Build Status](https://travis-ci.org/AranScope/pystarling.svg?branch=master)](https://travis-ci.org/AranScope/pystarling)
 
 ## Install
 
